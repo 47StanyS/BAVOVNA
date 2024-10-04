@@ -2548,8 +2548,8 @@ TextureImporter:
         serializedVersion: 2
         x: 2500
         y: 2090
-        width: 500
-        height: 498
+        width: 492
+        height: 493
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3357,6 +3357,27 @@ TextureImporter:
       bones: []
       spriteID: 43cf241ce6a292a478e3710546303346
       internalID: -418060827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles_9
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1590
+        width: 500
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea0d6efaa4c16a4bbcb00bd2d563134
+      internalID: -1178083998
       vertices: []
       indices: 
       edges: []
