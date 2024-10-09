@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class Player : MonoBehaviour
         if(_health == 0)
         {
             Debug.Log("Oj, Aj, AUCH BEBEBEBE! .!. ");
-            Destroy(gameObject);
+            SceneManager.LoadScene(2);
+            //Destroy(gameObject);
         }
       
 
