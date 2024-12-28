@@ -7,14 +7,16 @@ public class DamageOnTrigerEnter2D : MonoBehaviour
     {
         if (player)
         {
-            player._health --;
+            player.TakeDamage(0.1f);
+            CameraShake.Instance.ShakeCamera(2f, 0.2f);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<SpriteRenderer>().color = Color.red; 
+            collision.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red; 
+
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -30,7 +32,7 @@ public class DamageOnTrigerEnter2D : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player = null;
-            collision.GetComponent<SpriteRenderer>().color = Color.white;
+            collision.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }

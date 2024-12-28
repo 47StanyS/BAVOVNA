@@ -63,7 +63,7 @@ public class Ally : MonoBehaviour
         {
             Debug.Log("For a FRIEND!!!!");
 
-            collision.gameObject.GetComponent<Enemy>()._health -= _damage;
+           // collision.gameObject.GetComponent<Enemy>()._healthEnemy -= _damage;
         }
     }
 
