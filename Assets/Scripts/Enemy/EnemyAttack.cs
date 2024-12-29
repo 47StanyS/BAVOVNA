@@ -3,82 +3,36 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [HideInInspector]
+    public EnemyBrain enemyBrain;
+
     [SerializeField] private Transform _targetPlayer;
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private LayerMask _playerMask;
     [SerializeField] private float _attackRange;
+    public float _distanceToAttack;
 
     [SerializeField] private float _attackSpeed;
     public float _attackEnemyDamage;
 
-    [SerializeField]private Player _player;
-    //[SerializeField] private EnemyMove _enemyMove;
+    public bool _canAttack = false;
+    public bool _attacking;
 
-    [SerializeField] private bool _canAttack = false;
-    private Animator _playerAnimator;
-
-    private Animator _animator;
-    private void Awake()
+    public void Attack()
     {
-        _playerAnimator = _player.transform.GetChild(0).GetComponent<Animator>();
-        _animator = GetComponent<Animator>();
-    }
-    private void Update()
-    {
-        if(_targetPlayer != null)
+        if (_canAttack) 
         {
-            if (_canAttack == true)
-            {
+            _attacking = true;
+            enemyBrain._animator.SetBool("Attacking", _attacking);
 
-                _animator.Play("Damage");
-                StartCoroutine(AttackAnimation());
+            StartCoroutine(AttackDelay());
 
-                _canAttack = false;
-                StartCoroutine(AttackCuldown());
-              // if (_player._isBlocking == false)
-              // {
-              //
-              //
-              // }
-               // else
-               // {
-               //
-               //     _animator.Play("Block");
-               //     _canAttack = false;
-               //     StartCoroutine(AttackCuldown());
-               // }
-
-                //_player._isBlocking = false;
-            }
+            _canAttack = false;
         }
-
-        
-
-
-        //  if (_canAttack == true && _player._isBlocking == true)
-        //  {
-        //      _animator.Play("Blokc");
-        //      _animator.SetBool("_isBlock", true);
-        //      _animator.SetBool("_isAttack", false);
-        //      _canAttack = false;
-        //      StartCoroutine(AttackCuldown());
-        //      Debug.Log("DamageIsBlocking");
-        //  }
-        //  else if(_canAttack == true)
-        //  {
-        //      _animator.Play("Damage");
-        //      _animator.SetBool("_isAttack", true);
-        //      _animator.SetBool("_isBlock", false);
-        //      StartCoroutine(AttackAnimation());
-        //      _canAttack = false;
-        //      StartCoroutine(AttackCuldown());
-        //  }
-
     }
 
-    private void Attack()
+    public void HitZone()
     {
-        
         Collider2D[] _hitPlayer = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _playerMask);
         foreach (Collider2D _playerGround in _hitPlayer)
         {
@@ -86,37 +40,29 @@ public class EnemyAttack : MonoBehaviour
             Debug.Log("attack");
             CameraShake.Instance.ShakeCamera(10f, 0.2f);
             _playerGround.GetComponent<Player>().TakeDamage(_attackEnemyDamage / 2);
-            
         }
     }
+
+    private IEnumerator AttackDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        HitZone();
+
+        Debug.Log("HitZone");
+
+        yield return new WaitForSeconds(1.5f);
+        _canAttack = true;
+
+        Debug.Log("canAttack = true");
+
+        _attacking = false;
+        enemyBrain._animator.SetBool("Attacking", _attacking);
+    }
+
     private void OnDrawGizmosSelected()
     {
-        if(_attackPoint ==  null)
+        if (_attackPoint == null)
             return;
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
-    }
-    private IEnumerator AttackCuldown()
-    {
-        yield return new WaitForSeconds(3f);
-        _canAttack = true;
-    }
-    private IEnumerator AttackAnimation()
-    {
-        yield return new WaitForSeconds(1.50f);
-        Attack();
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !collision.isTrigger)
-        {
-            _targetPlayer = collision.transform;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !collision.isTrigger)
-        {
-            _targetPlayer = null;
-        }
     }
 }

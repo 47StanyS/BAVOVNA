@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    [HideInInspector]
+    public EnemyBrain enemyBrain;
+
     [SerializeField] GameObject _healtBarPrefab;
     [SerializeField] GameObject _healthBarPoints;
     HealthBarManager _healthBarManagerComponent;

@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
+    [HideInInspector]
+    public EnemyBrain enemyBrain;
+
     [Header("Transform Poins")]
     [SerializeField] private Transform[] _points;
     [Header("Transform Target")]
-    [SerializeField] private Transform _target;
+
     [SerializeField] private float _lineOfste;
     [SerializeField] private float _shootingRange;
     private Vector3 _targetPosition;
@@ -27,18 +30,7 @@ public class EnemyMove : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
-    private void FixedUpdate()
-    {
-        if (_target != null) 
-        {
-            TargetFolow();
-        }
-        else
-        {
-            WalkOnPoints();
-        }
-        
-    }
+
     private void Update()
     {
         if (transform.position.x > _targetPosition.x)
@@ -50,7 +42,7 @@ public class EnemyMove : MonoBehaviour
             _spriteRenderer.flipX = true;
         } 
     }
-    private void WalkOnPoints()
+    public void WalkOnPoints()
     {
         if (_isMoving)
         {
@@ -75,13 +67,13 @@ public class EnemyMove : MonoBehaviour
             }
         }
     }
-     private void TargetFolow()
+     public void TargetFolow()
      {
-         float _distanceFromPlayer = Vector2.Distance(_target.position,transform.position);
+         float _distanceFromPlayer = Vector2.Distance(enemyBrain.target.position,transform.position);
          if (_distanceFromPlayer < _lineOfste && _distanceFromPlayer > _shootingRange)
          {
-             transform.position = Vector2.MoveTowards(this.transform.position, _target.position, _runSpeed);
-             _targetPosition = _target.position;
+             transform.position = Vector2.MoveTowards(this.transform.position, enemyBrain.target.position, _runSpeed);
+             _targetPosition = enemyBrain.target.position;
             _animator.SetInteger("State", 2);
             _animator.SetBool("_isAttack", false);
         }
@@ -98,21 +90,6 @@ public class EnemyMove : MonoBehaviour
           Gizmos.DrawWireSphere(transform.position, _lineOfste);
           Gizmos.DrawWireSphere(transform.position, _shootingRange);
       }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !collision.isTrigger)
-        {
-            _target = collision.transform;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !collision.isTrigger)
-        {
-            _target = null;
-        }
-    }
 
     private IEnumerator canMoveTimer()
     {
