@@ -49,7 +49,7 @@ public class EnemyMove : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, _points[_currentPoint].position, _speed);
             _targetPosition = _points[_currentPoint].position;
             _animator.SetInteger("State", 1);
-            _animator.SetBool("_isAttack", false);
+            //_animator.SetBool("_isAttack", false);
         }
 
 
@@ -57,7 +57,7 @@ public class EnemyMove : MonoBehaviour
         {
             _isMoving = false;
             _animator.SetInteger("State", 0);
-            _animator.SetBool("_isAttack", false);
+            //_animator.SetBool("_isAttack", false);
             StartCoroutine(canMoveTimer());
             _currentPoint++;
 

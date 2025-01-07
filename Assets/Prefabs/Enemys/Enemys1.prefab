@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 2050714447225742049}
   - component: {fileID: 847905022431768799}
   - component: {fileID: 1250584388336271040}
+  - component: {fileID: 2864999439040730684}
   - component: {fileID: 4461602887823803674}
   - component: {fileID: 6862171083546720679}
   - component: {fileID: 6170697862235129400}
@@ -280,6 +281,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2864999439040730684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421851651477943686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44014149cc236841a00a24591e3f9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
+  target: {fileID: 0}
+  _animator: {fileID: 0}
 --- !u!114 &4461602887823803674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f672b98262d1834eac28e2f2e9db2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBrain: {fileID: 0}
   _healtBarPrefab: {fileID: 1590104128054250319, guid: e2582d641c61aab42aa155d9dc2c8abf, type: 3}
   _healthBarPoints: {fileID: 1583878641055432952}
   _enemyCurrentHealth: 100
@@ -308,10 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd5ece489ba274ea7045d9bbcc5128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBrain: {fileID: 0}
   _points:
   - {fileID: 789379649842638911}
   - {fileID: 8177793422918420178}
-  _target: {fileID: 0}
   _lineOfste: 5.52
   _shootingRange: 1.31
   _speed: 0.07
@@ -331,16 +348,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27130f8c0eaebc740afb5dd45d716434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBrain: {fileID: 0}
   _targetPlayer: {fileID: 0}
   _attackPoint: {fileID: 3009022522212346206}
   _playerMask:
     serializedVersion: 2
     m_Bits: 128
   _attackRange: 2.58
+  _distanceToAttack: 0
   _attackSpeed: 1
   _attackEnemyDamage: 10
-  _player: {fileID: 0}
   _canAttack: 1
+  _attacking: 0
 --- !u!95 &853073120166471399
 Animator:
   serializedVersion: 5

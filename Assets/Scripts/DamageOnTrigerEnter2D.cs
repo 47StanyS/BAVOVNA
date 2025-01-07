@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DamageOnTrigerEnter2D : MonoBehaviour
@@ -18,6 +19,10 @@ public class DamageOnTrigerEnter2D : MonoBehaviour
             collision.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red; 
 
         }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -35,4 +40,6 @@ public class DamageOnTrigerEnter2D : MonoBehaviour
             collision.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
+
+
 }
